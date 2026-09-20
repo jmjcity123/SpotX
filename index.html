@@ -3,159 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamble GmbH | SpotX for Windows</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>GAMBLE_GMBH // SPOTX_EDITION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            --bg: #030303;
+            --panel-bg: rgba(10, 10, 10, 0.9);
+            --fg: #ffffff;
+            --fg-dim: #777777;
             --primary: #ffd700;
-            --primary-glow: rgba(255, 215, 0, 0.4);
-            --bg-dark: #0a0805;
-            --card-bg: rgba(18, 14, 8, 0.85);
-            --border-color: rgba(255, 215, 0, 0.25);
-            --text-main: #ffffff;
-            --text-muted: #c5bba8;
+            --border: 1px solid rgba(255, 215, 0, 0.3);
+            --glow: 0 0 10px rgba(255, 215, 0, 0.3);
+            --glow-strong: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Share TechMono', 'Share Tech Mono', monospace;
+            text-transform: uppercase;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
+        /* MATRIX / BACKGROUND GLOW */
         .bg-glow {
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-            top: -100px;
-            left: -100px;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .bg-glow-2 {
-            position: fixed;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(255, 170, 0, 0.2) 0%, transparent 70%);
-            bottom: -100px;
-            right: -100px;
-            z-index: -1;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            top: -150px;
+            left: -150px;
+            z-index: 0;
             pointer-events: none;
         }
 
         /* WELCOME OVERLAY (DISCORD GATE) */
         #welcome-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(8, 6, 4, 0.96);
+            inset: 0;
+            background: rgba(3, 3, 3, 0.95);
+            backdrop-filter: blur(8px);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.4s ease;
         }
 
         .welcome-card {
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 30px var(--primary-glow);
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 480px;
+            background: var(--panel-bg);
+            border: var(--border);
+            box-shadow: var(--glow-strong);
+            padding: 30px 40px;
+            max-width: 500px;
             width: 90%;
+            text-align: center;
+            position: relative;
         }
 
         .welcome-card h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            text-shadow: var(--glow);
         }
 
         .welcome-card p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            color: var(--fg-dim);
+            margin-bottom: 20px;
+            font-size: 0.85rem;
             line-height: 1.5;
         }
 
-        .step-box {
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px dashed var(--primary);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            text-align: left;
-        }
-
         .btn-discord-join {
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             background: #5865F2;
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 600;
+            padding: 12px;
             text-decoration: none;
-            margin-bottom: 15px;
-            width: 100%;
-            justify-content: center;
-            transition: background 0.2s;
+            font-weight: bold;
+            margin-bottom: 12px;
+            transition: opacity 0.2s;
         }
 
         .btn-discord-join:hover {
-            background: #4752c4;
+            opacity: 0.85;
         }
 
         .btn-proceed {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: linear-gradient(135deg, #ffaa00, var(--primary));
-            color: #000;
-            font-weight: 800;
-            padding: 14px 24px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
+            background: rgba(255, 215, 0, 0.1);
+            border: var(--border);
+            color: var(--primary);
+            padding: 12px;
             width: 100%;
-            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
             opacity: 0.3;
             pointer-events: none;
-            transition: opacity 0.2s, transform 0.2s;
+            transition: 0.2s;
         }
 
         .btn-proceed.active {
             opacity: 1;
             pointer-events: auto;
+            background: var(--primary);
+            color: #000;
         }
 
         .btn-proceed.active:hover {
-            transform: scale(1.02);
+            box-shadow: var(--glow);
         }
 
         /* MAIN WEBSITE CONTENT */
         #main-content {
             display: none;
+            position: relative;
+            z-index: 1;
         }
 
         #main-content.visible {
@@ -171,23 +150,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 8%;
-            background: rgba(10, 8, 5, 0.9);
-            border-bottom: 1px solid var(--border-color);
+            padding: 20px 8%;
+            background: var(--panel-bg);
+            border-bottom: var(--border);
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .logo {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: var(--glow);
             display: flex;
-            align-items: center;
             gap: 10px;
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--primary);
-        }
-
-        .logo i {
-            color: var(--primary);
+            align-items: center;
         }
 
         .nav-links {
@@ -198,9 +176,9 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--fg-dim);
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.85rem;
             transition: color 0.2s;
         }
 
@@ -209,16 +187,15 @@
         }
 
         .nav-discord {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--primary);
+            background: rgba(255, 215, 0, 0.05);
+            border: var(--border);
             color: var(--primary) !important;
-            padding: 6px 16px;
-            border-radius: 8px;
+            padding: 6px 14px;
         }
 
         /* HERO SECTION */
         header.hero {
-            padding: 160px 8% 80px 8%;
+            padding: 180px 8% 80px 8%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -226,36 +203,34 @@
         }
 
         .hero-badge {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--primary);
+            background: rgba(255, 215, 0, 0.05);
+            border: var(--border);
             color: var(--primary);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 6px 16px;
+            font-size: 0.75rem;
             margin-bottom: 20px;
+            letter-spacing: 1px;
         }
 
         header.hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.1;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            line-height: 1.2;
             margin-bottom: 20px;
             max-width: 900px;
         }
 
         header.hero h1 span {
-            background: linear-gradient(135deg, var(--primary), #ffaa00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
+            text-shadow: var(--glow);
         }
 
         header.hero p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: var(--fg-dim);
+            font-size: 0.95rem;
             max-width: 600px;
             margin-bottom: 35px;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .hero-buttons {
@@ -269,38 +244,37 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, #ffaa00, var(--primary));
+            background: var(--primary);
             color: #000;
-            font-weight: 800;
-            padding: 14px 30px;
-            border-radius: 12px;
+            font-weight: bold;
+            padding: 12px 25px;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
 
         .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px var(--primary-glow);
+            box-shadow: var(--glow-strong);
         }
 
         .btn-outline {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(18, 14, 8, 0.9);
-            border: 1px solid var(--primary);
+            background: transparent;
+            border: var(--border);
             color: var(--primary);
-            font-weight: 700;
-            padding: 14px 30px;
-            border-radius: 12px;
+            font-weight: bold;
+            padding: 12px 25px;
             text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             transition: background 0.2s;
-            font-size: 1rem;
         }
 
         .btn-outline:hover {
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.05);
         }
 
         /* SECTIONS */
@@ -314,157 +288,110 @@
         }
 
         .section-title h2 {
-            font-size: 2.2rem;
-            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
         .section-title h2 span {
             color: var(--primary);
+            text-shadow: var(--glow);
         }
 
         .section-title p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
+            color: var(--fg-dim);
+            font-size: 0.85rem;
         }
 
-        .features-grid {
-            display: flex;
-            justify-content: center;
+        .features-grid, .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 35px 30px;
-            max-width: 450px;
-            width: 100%;
-            transition: border-color 0.2s, transform 0.2s;
+        .feature-card, .team-card {
+            background: var(--panel-bg);
+            border: var(--border);
+            padding: 30px;
+            position: relative;
+            transition: 0.2s;
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
+        .feature-card:hover, .team-card:hover {
             border-color: var(--primary);
+            box-shadow: var(--glow);
         }
 
         .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 215, 0, 0.05);
+            border: var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-bottom: 20px;
         }
 
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
+        .feature-card h3, .team-card h3 {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
             margin-bottom: 10px;
         }
 
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .feature-card p, .team-card p {
+            color: var(--fg-dim);
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
 
-        /* TEAM SECTION */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            max-width: 750px;
-            margin: 0 auto;
-        }
-
+        /* TEAM SPECIFIC */
         .team-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 35px 25px;
             text-align: center;
             cursor: pointer;
-            position: relative;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .team-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-        }
-
-        .team-card::after {
-            content: "Profil ansehen";
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: var(--primary);
-            opacity: 0.7;
         }
 
         .team-avatar {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 215, 0, 0.15);
-            border: 2px solid var(--primary);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 215, 0, 0.05);
+            border: var(--border);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px auto;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--primary);
-        }
-
-        .team-card h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 5px;
         }
 
         .team-role {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid var(--primary);
+            background: rgba(255, 215, 0, 0.05);
+            border: var(--border);
             color: var(--primary);
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
             margin-bottom: 12px;
-        }
-
-        .team-card p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 15px;
         }
 
         /* DISCORD PROFILE MODAL */
         #profile-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
             z-index: 10001;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.2s ease;
         }
 
         #profile-modal.show {
@@ -475,112 +402,93 @@
         .discord-profile-card {
             background: #111214;
             width: 340px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-            border: 1px solid #22252a;
+            border: var(--border);
+            box-shadow: var(--glow-strong);
             position: relative;
-            animation: modalPop 0.25s ease;
-        }
-
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .discord-banner {
-            height: 120px;
-            background: linear-gradient(135deg, #2b2d31, #1e1f22);
+            height: 100px;
+            background: #22252a;
             position: relative;
         }
 
         .close-modal {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 10px;
+            right: 10px;
             background: rgba(0,0,0,0.5);
             color: #fff;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            width: 25px;
+            height: 25px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .close-modal:hover {
-            background: rgba(0,0,0,0.8);
         }
 
         .discord-avatar-container {
             position: absolute;
-            top: 70px;
-            left: 18px;
-            width: 84px;
-            height: 84px;
+            top: 60px;
+            left: 15px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             background: #111214;
-            padding: 4px;
+            padding: 3px;
         }
 
         .discord-avatar-inner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.15);
-            border: 2px solid var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 1.5rem;
             position: relative;
         }
 
         .discord-status-dot {
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 16px;
-            height: 16px;
+            bottom: 0;
+            right: 0;
+            width: 14px;
+            height: 14px;
             background: #23a55a;
-            border: 3px solid #111214;
+            border: 2px solid #111214;
             border-radius: 50%;
         }
 
         .discord-body {
-            padding: 55px 18px 20px 18px;
-            background: #111214;
+            padding: 50px 15px 20px 15px;
         }
 
         .discord-username {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: bold;
             color: #f2f3f5;
             margin-bottom: 2px;
         }
 
         .discord-tag {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #949ba4;
             margin-bottom: 12px;
-            font-family: 'JetBrains Mono', monospace;
         }
 
         .discord-divider {
             height: 1px;
             background: #2b2d31;
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .discord-section-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 0.7rem;
             color: #b5bac1;
             margin-bottom: 6px;
             letter-spacing: 0.5px;
@@ -598,22 +506,20 @@
             align-items: center;
             gap: 6px;
             background: #2b2d31;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 3px 8px;
+            font-size: 0.7rem;
             color: #dbdee1;
-            font-weight: 600;
         }
 
         .discord-role-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--primary);
             border-radius: 50%;
         }
 
         .discord-about {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #dbdee1;
             line-height: 1.4;
         }
@@ -621,16 +527,16 @@
         /* FOOTER */
         footer {
             text-align: center;
-            padding: 35px 8%;
-            border-top: 1px solid var(--border-color);
-            background: rgba(8, 6, 4, 0.9);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            padding: 30px 8%;
+            border-top: var(--border);
+            background: var(--panel-bg);
+            color: var(--fg-dim);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
         }
 
         footer span {
             color: var(--primary);
-            font-weight: 700;
         }
 
         /* TOAST NOTIFICATION */
@@ -638,11 +544,10 @@
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: rgba(12, 10, 6, 0.95);
-            border: 1px solid var(--primary);
+            background: var(--panel-bg);
+            border: var(--border);
             color: #fff;
-            padding: 14px 20px;
-            border-radius: 10px;
+            padding: 12px 20px;
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -650,6 +555,7 @@
             transform: translateY(80px);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: var(--glow);
         }
 
         #toast.show {
@@ -659,25 +565,19 @@
 
         #toast i {
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 
     <div class="bg-glow"></div>
-    <div class="bg-glow-2"></div>
 
     <!-- WELCOME / DISCORD GATE OVERLAY -->
     <div id="welcome-overlay">
         <div class="welcome-card">
             <h1>Willkommen zur<br>Gamble GmbH</h1>
             <p>Tritt zuerst unserem offiziellen Discord-Server bei, um Zugriff auf den Werbe-Blocker zu erhalten!</p>
-            
-            <div class="step-box">
-                <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> <b>1.</b> Discord beitreten<br>
-                <b>2.</b> Auf "Weiter" klicken
-            </div>
 
             <a href="https://discord.gg/KEAJwqudQK" target="_blank" class="btn-discord-join" onclick="unlockProceed()">
                 <i class="fa-brands fa-discord"></i> Join Discord
@@ -715,7 +615,7 @@
                     <i class="fa-solid fa-download"></i> Download Spotify.bat
                 </a>
                 <a href="https://discord.gg/KEAJwqudQK" target="_blank" class="btn-outline">
-                    <i class="fa-brands fa-discord"></i> Discord Support
+                    <i class="fa-brands fa-discord"></i> Support
                 </a>
             </div>
         </header>
@@ -753,7 +653,7 @@
                     </div>
                     <h3>Whizzy</h3>
                     <span class="team-role">Owner</span>
-                    <p>Hauptgründer & Chefentwickler der Gamble GmbH. Verantwortlich für Kernsysteme und Skripte.</p>
+                    <p>Hauptgründer & Chefentwickler. Verantwortlich für Kernsysteme und Skripte.</p>
                 </div>
 
                 <!-- Noxyre Card -->
@@ -763,7 +663,7 @@
                     </div>
                     <h3>Noxyre</h3>
                     <span class="team-role">Owner</span>
-                    <p>Co-Founder & Co-Owner der Gamble GmbH. Verantwortlich für Systemsicherheit und Updates.</p>
+                    <p>Co-Founder & Co-Owner. Verantwortlich für Systemsicherheit und Updates.</p>
                 </div>
             </div>
         </section>
@@ -810,8 +710,8 @@
     <div id="toast">
         <i class="fa-solid fa-circle-check"></i>
         <div>
-            <b style="display: block; font-size: 0.9rem;">Download gestartet</b>
-            <span style="font-size: 0.8rem; color: var(--text-muted);">Spotify.bat wird heruntergeladen...</span>
+            <b style="display: block; font-size: 0.8rem;">Download gestartet</b>
+            <span style="font-size: 0.75rem; color: var(--fg-dim);">Spotify.bat wird heruntergeladen...</span>
         </div>
     </div>
 
